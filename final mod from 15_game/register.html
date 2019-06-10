@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="./css/bootstrap.min.css" />
+    <style>
+        body {
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 100px;
+            width: 240px;
+        }
+        topbar {
+            
+            margin-top: 0px;
+        }
+    </style>
+</head>
+<body>
+    <div class="topbar"><a href="login.html">返回登录页面</a></div>
+    <div class="input-group">
+        <span class="input-group-addon" id="basic-addon1">^</span>
+        <input id="userName" type="text" class="form-control" 
+            placeholder="用户名" aria-describedby="basic-addon1" />
+    </div>
+    <br />
+    <div class="input-group">
+        <span class="input-group-addon" id="basic-addon2">*</span>
+        <input id="password" type="password" class="form-control" 
+            placeholder="密码" aria-describedby="basic-addon2" />
+    </div>
+    <br />
+    <div class="input-group">
+        <span class="input-group-addon" id="basic-addon3">*</span>
+        <input id="password2" type="password" class="form-control" 
+            placeholder="重复密码" aria-describedby="basic-addon2" />
+    </div>
+    <button type="button" style="width: 100px; margin-left: 70px; margin-top: 40px;"
+            class="btn btn-default" id="register">注 册</button>
+    
+    <script>
+        let registerButton = document.querySelector("#register");
+        let usernameField = document.querySelector("#userName");
+        let codeField = document.querySelector("#password");
+        let codeField2 = document.querySelector("#password2");
+        let inputFieldDeal = function(event) {
+            if(event.keyCode == 13) {
+                // console.log("you press enter");
+                // 触发login按钮的点击事件
+                registerButton.click();
+            }
+        };
+        // 给3个input域都添加同一个监听事件
+        usernameField.addEventListener("keyup", inputFieldDeal);
+        codeField.addEventListener("keyup", inputFieldDeal);
+        codeField2.addEventListener("keyup", inputFieldDeal);
+
+        registerButton.addEventListener("click", function(event) {
+            var username = usernameField.value;
+            var code = codeField.value;
+            var code2 = codeField2.value;
+            // console.log(code == code2);
+            if(!username || !code || !code2) {
+                alert("注册信息填写不完整！");
+                return;
+                // console.log(code);
+            }
+            if(code != code2) {
+                alert("两次输入密码不一致！");
+                return;
+            }
+            // 这决定了只能同时保存一个用户名密码，后来注册的用户会覆盖之前的
+            localStorage.setItem("username", username);
+            localStorage.setItem("password", code);
+            alert("注册成功！");
+
+            // 立即跳转至登录页面，不打开新的窗口。login.html是要跳转的页面文件名
+            window.location.href = "login.html";
+        });
+    </script>
+</body>

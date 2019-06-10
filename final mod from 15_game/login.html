@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="./css/bootstrap.min.css" />
+    <style>
+        body {
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 100px;
+            width: 240px;
+        }
+    </style>
+</head>
+<body>
+    <div class="input-group">
+        <span class="input-group-addon" id="basic-addon1">@</span>
+        <input id="userName" type="text" class="form-control" 
+            placeholder="用户名" aria-describedby="basic-addon1" />
+    </div>
+    <br />
+    <div class="input-group">
+        <span class="input-group-addon" id="basic-addon2">@</span>
+        <input id="password" type="password" class="form-control" 
+            placeholder="密码" aria-describedby="basic-addon2" />
+    </div>
+    <br />
+    <a href="register.html">注册</a>
+    <br />
+    <button type="button" style="width: 100px; margin-left: 70px; margin-top: 40px;"
+        class="btn btn-default" id="login">登 录</button>
+
+    <script>
+        if(localStorage.getItem("username") != undefined) {
+            console.log("username != undefined");
+            console.log(localStorage.getItem("username"));
+        }
+        let loginButton = document.querySelector("#login");
+        let usernameField = document.querySelector("#userName");
+        let codeField = document.querySelector("#password");
+        let inputFieldDeal = function(event) {
+            if(event.keyCode == 13) {
+                loginButton.click();
+            }
+        }
+        usernameField.addEventListener("keyup", inputFieldDeal);
+        codeField.addEventListener("keyup", inputFieldDeal);
+
+        loginButton.addEventListener("click", function(event) {
+            var username = usernameField.value;
+            var code = codeField.value;
+            if(localStorage.getItem("username") == undefined) {
+                alert("您还未注册过！");
+                return;
+            }
+            if(username != localStorage.getItem("username")) {
+                alert("用户名不存在！");
+                return;
+            }
+            if(code != localStorage.getItem("password")) {
+                alert("密码不正确！");
+                return;
+            }
+            // if(username == localStorage.getItem("username") 
+                // && code == localStorage.getItem("password")) {
+                console.log("username and password matched");
+            // }
+
+            // 保存一下登录的时间的毫秒数，用于设置登录有效期
+            localStorage.setItem("time", new Date().getTime());
+            window.location.href = "index.html";
+        })
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!doctype html>
+<script src="code/chapter/15_game.js"></script>
+<script src="code/game_levels.js"></script>
+
+<script src="tool/vue.js"></script>
+<script src="code/chapter/16_image.js"></script>
+
+<link rel="stylesheet" href="css/game.css">
+
+<body>
+	<div id="app">
+	  <p>remain life: {{remain}}</p>
+	</div>
+	<!-- <div class="footer">
+		<button class="left" type="button" id="left">←</button>
+		<button class="right" type="button" id="right">→</button>
+		<button class="up" type="button" id="up">↑</button>
+	</div> -->
+  <script>
+	  if(localStorage.getItem("username") == null) {
+		window.location.href = "login.html";
+	  }
+	  // 保存的time是毫秒值
+	  let timeLastValue = localStorage.getItem("time");
+	  let timeNow = new Date();
+	  // 距离上次登录已有1小时
+	  if( (timeNow.getTime() - timeLastValue) / 1000 >= 3600) {
+		  alert("登录已失效，请重新登录");
+		  window.location.href = "login.html";
+	  }
+	
+    runGame(GAME_LEVELS, CanvasDisplay);
+  </script>
+  
+	<!-- <br /> -->
+	
+	<script>
+
+		var app = new Vue({
+			el: '#app',
+			data: {
+				remain: 3,
+				score: 0
+			}
+		})
+		
+		
+		
+	</script>
+</body>
